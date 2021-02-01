@@ -8,7 +8,7 @@ else alert('Ваше число - ноль')
 //2
 let age = +prompt("Введите свой возраст числом");
 if (isNaN(age)) alert("Это точно возраст?");
-else if (age <= 0) alert("Так себе возраст...");
+else if ((age <= 0) && (age >= 121)) alert("Так себе возраст...");
 else alert("Все ок, спасибо!");
 
 //3
@@ -85,5 +85,4 @@ else {
     else if ((+year % 12) === 9) alert('Snake');
     else if ((+year % 12) === 10) alert('Horse');
     else if ((+year % 12) === 11) alert('Sheep');
-    else if ((+year % 12) === 12) alert('Monkey');
 }
