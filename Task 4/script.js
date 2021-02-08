@@ -144,7 +144,8 @@ function calcTime(car, distance) {
     hours = Math.trunc(distance / speed);
     min = Math.trunc(((distance - hours * speed) * 1000) / 25 / 60);
     seconds = ((distance - hours * speed) * 1000) / 25 - min * 60;
-    if (hours % 4 === 0 && min === 0 && seconds === 0) hoursOfRest = Math.trunc(distance / 360) - 1;
+    if (hours % 4 === 0 && min === 0 && seconds === 0) 
+    hoursOfRest = Math.trunc(distance / 360) - 1;
     else hoursOfRest = Math.trunc(distance / 360);
     console.log(`${hours} hours, ${min} minutes and ${seconds} seconds for this distance; time to rest - ${hoursOfRest} hours`);
     console.log(`My car - ${car.brand} ${car.model} ${car.yearOfProduction}, middle speed - ${car.midSpeed} ${car.valueOfSpeed}`);
@@ -226,30 +227,28 @@ function reduceFraction(fraction) {
     } else if (numerator > denominator) {
         let integerNum = Math.trunc(numerator / denominator);
         numerator = numerator % denominator;
-        let min = numerator;
-        for (; min > 1; min--) {
+        for (let min = numerator; min > 1; min--) {
             if (numerator % min === 0 && denominator % min === 0) {
                 numerator = numerator / min;
                 denominator = denominator / min;
             }
         }
         console.log(`${integerNum} and ${numerator}/${denominator}`);
-    } else {
-        let min = numerator;
-        for (; min > 1; min--) {
+    } else {        
+        for (let min = numerator; min > 1; min--) {
             if (numerator % min === 0 && denominator % min === 0) {
                 numerator = numerator / min;
                 denominator = denominator / min;
-                console.log(`${numerator}/${denominator}`);
             }
         }
+        console.log(`${numerator}/${denominator}`);
     }
 }
 let drob3 = {
-    numerator: 2,
-    denominator: 8,
+    numerator: 4,
+    denominator: 3
 };
-//check
+// check
 // reduceFraction(drob3);
 
 
