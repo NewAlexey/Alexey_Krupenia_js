@@ -473,7 +473,7 @@ let addElemInArr = function (a) {
 };
 let myArr = addElemInArr(countOfElemInArray);
 //check
-console.log(myArr);
+// console.log(myArr);
 
 //3 Show only even numbers
 
@@ -483,7 +483,7 @@ function showEvenElem(arr) {
     });
 }
 //check
-showEvenElem(myArr);
+// showEvenElem(myArr);
 
 //4 Show sum all elem of array
 
@@ -493,7 +493,7 @@ function getSumElemOfArray(arr) {
     return console.log(`Sum all elements of array - ${sum}`);
 }
 //check
-getSumElemOfArray(myArr);
+// getSumElemOfArray(myArr);
 
 //5 Show max elem of array
 
@@ -505,7 +505,7 @@ function showMaxElemOfArray(arr) {
     return console.log(`Max element of array - ${max}`);
 }
 //check
-showMaxElemOfArray(myArr);
+// showMaxElemOfArray(myArr);
 
 //6 Add shown elem in shown index.
 let newElement = 666;
@@ -531,3 +531,110 @@ let arrayAfterSplice = function(arr, index) {
 
 arrayAfterSplice(myArr, deleteIndex);
 console.log(myArr);
+
+let array = [1, -2, 0, 14, -50];
+
+//1 task
+let a = 0;
+let b = 0;
+let c = 5;
+
+let result1 = function (a, b, c, arr) {
+    arr.forEach((x) => {
+        if (x < 0 && b !== 0) return console.log(`1) ${a * Math.pow(x, 2) + b}`);
+        else if (x > 0 && b === 0) return console.log(`2) ${(x - a) / (x - c)}`);
+        else console.log(`3) ${x / c}`);
+    });
+};
+//check
+// result1(a, b, c, array);
+
+let result2 = function (a, b, c, arr) {
+    arr.forEach((x) => {
+        if (a < 0 && c !== 0) return console.log(`1) ${a * Math.pow(x, 2) + b * x + c}`);
+        else if (a > 0 && c === 0) return console.log(`2) ${-a / (x - c)}`);
+        else console.log(`3) ${a * (x + c)}`);
+    });
+};
+//check
+// result2(a, b, c, array);
+
+let result3 = function (a, b, c, arr) {
+    arr.forEach((x) => {
+        if (x - a < 0 && c !== 0) return console.log(`1) ${a - x / (10 + b)}`);
+        else if (x - a > 0 && b === 0) return console.log(`2) ${(x - a) / (x - c)}`);
+        else console.log(`3) ${3 * x + 2 / c}`);
+    });
+};
+//check
+// result3(a, b, c, array);
+
+let result4 = function (a, b, c, arr) {
+    arr.forEach((x) => {
+        if (x < 5 && c !== 0) return console.log(`1) ${-a * Math.pow(x, 2) - b}`);
+        else if (x > 5 && c === 0) return console.log(`2) ${(x - a) / x}`);
+        else console.log(`3) ${-x / c}`);
+    });
+};
+//check
+// result4(a, b, c, array);
+
+let result5 = function (a, b, c, arr) {
+    arr.forEach((x) => {
+        if (a < 0 && x !== 0) return console.log(`1) ${a * Math.pow(x, 2) + Math.pow(b, 2) * x}`);
+        else if (a > 0 && x === 0) return console.log(`2) ${x - a / (x - c)}`);
+        else console.log(`3) ${1 + x / c}`);
+    });
+};
+//check
+// result5(a, b, c, array);
+
+let result6 = function (a, b, c, arr) {
+    arr.forEach((x) => {
+        if (x + 5 < 0 && c === 0) return console.log(`1) ${1 / (a * x) - b}`);
+        else if (x + 5 > 0 && x !== 0) return console.log(`2) ${(x - a) / x}`);
+        else console.log(`3) ${(10 * x) / (c - 4)}`);
+    });
+};
+//check
+// result6(a, b, c, array);
+
+let result7 = function (a, b, c, arr) {
+    arr.forEach((x) => {
+        if (c < 0 && x !== 0) return console.log(`1) ${-a * x - c}`);
+        else if (c > 0 && x === 0) return console.log(`2) ${(x - a) / (a - c)}`);
+        else console.log(`3) ${b * x * (c - a)}`);
+    });
+};
+//check
+// result7(a, b, c, array);
+
+let result8 = function (a, b, c, arr) {
+    arr.forEach((x) => {
+        if (c < 0 && b !== 0) return console.log(`1) ${a * Math.pow(x, 2) + Math.pow(b, 2) * x}`);
+        else if (c > 0 && b === 0) return console.log(`2) ${(x + a) / (x + c)}`);
+        else console.log(`3) ${((a * x) / c) * Math.pow(b, 2)}`);
+    });
+};
+//check
+// result8(a, b, c, array);
+
+let result9 = function (a, b, c, arr) {
+    arr.forEach((x) => {
+        if (c < 0 && a !== 0) return console.log(`1) ${-a * Math.pow(x, 2)}`);
+        else if (c > 0 && a === 0) return console.log(`2) ${((a - x) / c) * x}`);
+        else console.log(`3) ${-x / (c - a * x)}`);
+    });
+};
+//check
+// result9(a, b, c, array);
+
+let result10 = function (a, b, c, arr) {
+    arr.forEach((x) => {
+        if (x < 3 && b !== 0) return console.log(`1) ${a * Math.pow(x, 2) - b * x + c}`);
+        else if (x > 3 && b === 0) return console.log(`2) ${(x - a) / (x - c)}`);
+        else console.log(`3) ${x / c}`);
+    });
+};
+//check
+// result10(a, b, c, array);
