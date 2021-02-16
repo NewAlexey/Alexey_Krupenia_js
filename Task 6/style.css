@@ -1,0 +1,110 @@
+body {
+    background-color: #f9f9f9;
+}
+
+/* .container {
+    margin: 0 auto;
+} */
+
+.container_content {
+    width: 900px;
+    height: 200px;
+    margin: 30px auto;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.container_task-1 {
+	margin: 70px auto 30px auto;
+}
+
+.first_task {
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    background-color: #f9f9f9;
+    font-size: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: black;
+}
+
+.div_two_buttons {
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.container_content_todo {
+    width: 900px;
+    margin: 30px auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#div_todo {
+    padding-top: 25px;
+}
+
+.div_todo {
+    height: 40px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.container_content_calc {
+    width: 900px;
+    height: 200px;
+    margin: 30px auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.div_calc_answer {
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    background-color: #f9f9f9;
+    font-size: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: black;
+}
+
+#input_text_task_4 {
+    width: 35px;
+	padding-left: 12px;
+}
+
+#input_number_task_4_1,
+#input_number_task_4_2 {
+	width: 80px;
+	padding-left: 10px;
+}
+
+.red_circle {
+	box-shadow: 0 0 10px rgba(255, 0, 0);
+}
+
+.green_circle {
+	box-shadow: 0 0 10px rgba(0, 255, 0);
+}
