@@ -1,41 +1,41 @@
 //Task 1
-let buttonTask1 = document.getElementById("button_task_1");
+let buttonCounter = document.getElementById("buttonCounter");
 
-let countTask1 = function () {
-    let divTask1 = document.getElementById("div_task_1");
-    let count = +divTask1.innerHTML;
+let count = function () {
+    let divCounter = document.getElementById("divCounter");
+    let count = +divCounter.innerHTML;
     count += 1;
-    divTask1.innerHTML = count;
+    divCounter.innerHTML = count;
 };
-buttonTask1.addEventListener("click", countTask1);
+buttonCounter.addEventListener("click", count);
 
 //Task 2
-let buttonTask2_1 = document.getElementById("button_task_2_1");
-let countTask2_1 = function () {
-    let divTask2 = document.getElementById("div_task_2");
-    let count = +divTask2.innerHTML;
-    count += 1;
-    divTask2.innerHTML = count;
-};
-buttonTask2_1.addEventListener("click", countTask2_1);
+let buttonPlus = document.getElementById("buttonPlus");
+let divPlusMinus = document.getElementById("divPlusMinus");
+let buttonMinus = document.getElementById("buttonMinus");
 
-let buttonTask2_2 = document.getElementById("button_task_2_2");
-let countTask2_2 = function () {
-    let divTask2 = document.getElementById("div_task_2");
-    let count = +divTask2.innerHTML;
-    count -= 1;
-    divTask2.innerHTML = count;
+let countPlus = function () {
+    let count = +divPlusMinus.innerHTML;
+    count += 1;
+    divPlusMinus.innerHTML = count;
 };
-buttonTask2_2.addEventListener("click", countTask2_2);
+
+let countMinus = function () {
+    let count = +divPlusMinus.innerHTML;
+    count -= 1;
+    divPlusMinus.innerHTML = count;
+};
+buttonPlus.addEventListener("click", countPlus);
+buttonMinus.addEventListener("click", countMinus);
 
 //Task 3
-let buttonTask3 = document.getElementById("button_task_3");
+let buttonToDo = document.getElementById("buttonToDo");
 
-let addListItem = function (value) {
-    let inputTask3 = document.getElementById("input_text_task_3");
-    valueInput = inputTask3.value;
-    inputTask3.value = "";
-    let divToDo = document.getElementById("div_todo");
+let addListItem = function () {
+    let inputToDo = document.getElementById("inputToDo");
+    valueInput = inputToDo.value;
+    inputToDo.value = "";
+    let divToDo = document.getElementById("divToDo");
     if (valueInput !== "") {
         if (!document.querySelector("ul")) {
             let ul = document.createElement("ul");
@@ -51,34 +51,75 @@ let addListItem = function (value) {
         }
     }
 };
-buttonTask3.addEventListener("click", addListItem);
+buttonToDo.addEventListener("click", addListItem);
 
 //Task 4
-let buttonTask4 = document.getElementById('button_task_4');
+let buttonCalc = document.getElementById("buttonCalc");
+let divCalc = document.getElementById("divCalc");
+let inputFirstNumber = document.getElementById("inputFirstNumber");
+let inputSecondNumber = document.getElementById("inputSecondNumber");
+let inputOperator = document.getElementById("inputOperator");
 
-let calcNumbers = function() {
-	let inputTask4_1 = document.getElementById('input_number_task_4_1');
-	let inputTask4_sign = document.getElementById('input_text_task_4');
-	let inputTask4_2 = document.getElementById('input_number_task_4_2');
-	let divAnswer = document.getElementById('div_calc_answer');
-	valueFirst = +inputTask4_1.value;
-	valueSecond = +inputTask4_2.value;
-	sign = inputTask4_sign.value.trim();
-	if ((sign !== '+') && (sign !== '-') && (sign !== '*') && (sign !== '/')) {
-		divAnswer.classList.remove('green_circle');
-		divAnswer.classList.add('red_circle');
-		divAnswer.innerHTML = '';
-	} else {
-		divAnswer.classList.remove('red_circle');
-		divAnswer.classList.add('green_circle');
-		let answ;
-		if (sign === '+') answ = valueFirst + valueSecond;
-		else if (sign === '-') answ = valueFirst - valueSecond;
-		else if (sign === '*') answ = valueFirst * valueSecond;
-		else answ = (valueFirst / valueSecond).toFixed(4);
-		if (isNaN(answ)) answ = '';
-		divAnswer.innerHTML = answ;
-	}
+let calcObject = {
+    "+": findSum,
+    "-": findDiff,
+    "*": findMult,
+    "/": findQuotient,
+};
+
+function findSum(a, b) {
+    return a + b;
 }
 
-buttonTask4.addEventListener('click', calcNumbers);
+function findDiff(a, b) {
+    return a - b;
+}
+
+function findMult(a, b) {
+    return a * b;
+}
+
+function findQuotient(a, b) {
+    return (a / b).toFixed(4);
+}
+
+function checkOperator(operator) {
+    if (operator !== "+" && operator !== "-" && operator !== "*" && operator !== "/") {
+        return false;
+    }
+    else return true;
+}
+function checkNumber(num) {
+    if (num === '') {
+        return false;
+    } else return true;
+}
+
+function check() {
+    let firstNumber = inputFirstNumber.value;
+    let secondNumber = inputSecondNumber.value;
+    let operator = inputOperator.value;    
+    if ((operator === '/') && (+firstNumber === 0) && (+secondNumber === 0)) {
+        divCalc.classList.remove('green_circle');
+        divCalc.classList.add('red_circle');
+        divCalc.innerHTML = '';
+    } else if (checkNumber(firstNumber) && checkNumber(secondNumber) && checkOperator(operator)) {
+        divCalc.classList.remove('red_circle');
+        divCalc.classList.add('green_circle')
+        calcNumbers();
+    } else {
+        divCalc.classList.remove('green_circle');
+        divCalc.classList.add('red_circle');
+        divCalc.innerHTML = '';
+    }
+}
+function calcNumbers() {
+    let firstNumber = +inputFirstNumber.value;
+    let secondNumber = +inputSecondNumber.value;
+    let operator = inputOperator.value;
+    let res;
+    res = calcObject[operator](firstNumber, secondNumber);
+    divCalc.innerHTML = res;
+}
+
+buttonCalc.addEventListener("click", check);

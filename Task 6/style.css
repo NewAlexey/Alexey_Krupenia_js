@@ -54,7 +54,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-#div_todo {
+#divToDo {
     padding-top: 25px;
 }
 
@@ -90,16 +90,18 @@ body {
     color: black;
 }
 
-#input_text_task_4 {
+#inputOperator {
     width: 35px;
 	padding-left: 12px;
 }
 
-#input_number_task_4_1,
-#input_number_task_4_2 {
+#inputFirstNumber,
+#inputSecondNumber {
 	width: 80px;
 	padding-left: 10px;
 }
+
+
 
 .red_circle {
 	box-shadow: 0 0 10px rgba(255, 0, 0);
