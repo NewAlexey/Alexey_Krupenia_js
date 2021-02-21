@@ -1,118 +1,146 @@
-$bg_color__body: #1C1C1C;
-$border_color:#363636;
+$bg_color__body: #1c1c1c;
+$border_color: #363636;
 $buttons_numbers_color: #141414;
 $num_oper_color: white;
-$info_color:#666666;
-$buttons_operator_color: #1C1C1C;
+$info_color: #666666;
+$buttons_operator_color: #1c1c1c;
 $button_calculate_color: #000838;
 $buttom_calculate_hover_color: #000857;
 
-.body {
-    background-color: $bg_color__body;
+.container {
+    text-align: center;
 }
 
-.calc {
-    width: 500px;
-    height: 550px;
-    margin: 50px auto;
-    border: 1px solid $border_color;
-    box-sizing: content-box;
+.body {
+    background-color: $bg_color__body;
 
-    .info {
-        height: 50px;
-        color: $info_color;
-        text-align: right;
-        line-height: 50px;
-        padding-right: 20px;
-        box-sizing: border-box;
-        border: 1px solid $border_color;
-        cursor: default;
-    }
-
-    .screen {
-        height: 100px;
-        border: 1px solid $border_color;
-        color: $num_oper_color;
-        text-align: right;
-        line-height: 100px;
-        padding-right: 20px;
-        font-size: 35px;
-        box-sizing: border-box;
-        cursor: default;
-    }
-
-    .buttons {
-        display: flex;
-        box-sizing: border-box;
+    .calc {
         width: 500px;
+        height: 550px;
+        margin: 70px auto 15px auto;
+        border: 1px solid $border_color;
+        box-sizing: content-box;
 
-        .numbers {
-            display: flex;
-            flex-wrap: wrap;
-            width: 300px;
+        .info {
+            height: 52px;
+            color: $info_color;
+            text-align: right;
+            line-height: 50px;
+            padding-right: 20px;
             box-sizing: border-box;
-
-            .number_buttons {
-                color: $num_oper_color;
-                width: 100px;
-                height: 100px;
-                border: 1px solid $border_color;
-                text-align: center;
-                line-height: 100px;
-                background-color: $buttons_numbers_color;
-                box-sizing: border-box;
-                margin: 0px;
-                font-size: 30px;
-            }
-
-            .number_buttons:hover {
-                background-color: $border_color;
-                cursor: pointer;
-            }
+            border: 1px solid $border_color;
+            cursor: default;
+            overflow: auto;
         }
 
-        .operators {
-            display: flex;
-            flex-wrap: wrap;
-            width: 200px;
+        .screen {
+            min-height: 102px;
+            border: 1px solid $border_color;
+            color: $num_oper_color;
+            text-align: right;
+            line-height: 100px;
+            padding-right: 20px;
+            font-size: 35px;
             box-sizing: border-box;
+            cursor: default;
+            overflow: auto;
+        }
 
-            .operator {
-                color: $num_oper_color;
-                width: 100px;
-                height: 100px;
-                border: 1px solid $border_color;
-                text-align: center;
-                line-height: 100px;
-                background-color: $buttons_operator_color;
+        .buttons {
+            display: flex;
+            box-sizing: border-box;
+            width: 500px;
+
+            .numbers {
+                display: flex;
+                flex-wrap: wrap;
+                width: 300px;
                 box-sizing: border-box;
-                margin: 0px;
-                font-size: 30px;
+
+                .number_buttons {
+                    color: $num_oper_color;
+                    width: 100px;
+                    height: 100px;
+                    border: 1px solid $border_color;
+                    text-align: center;
+                    line-height: 100px;
+                    background-color: $buttons_numbers_color;
+                    box-sizing: border-box;
+                    margin: 0px;
+                    font-size: 30px;
+                }
+
+                .number_buttons:hover {
+                    background-color: $border_color;
+                    cursor: pointer;
+                }
             }
 
-            .operator:hover {
-                background-color: $border_color;
-                cursor: pointer;
-            }
-
-            .calculate {
-                color: $num_oper_color;
+            .operators {
+                display: flex;
+                flex-wrap: wrap;
                 width: 200px;
-                height: 100px;
-                border: 1px solid $border_color;
-                text-align: center;
-                line-height: 100px;
-                background-color: $button_calculate_color;
                 box-sizing: border-box;
-                margin: 0px;
-                font-size: 30px;
-            }
 
-            .calculate:hover {
-                background-color: $buttom_calculate_hover_color;
-                cursor: pointer;
-                
+                .operator {
+                    color: $num_oper_color;
+                    width: 100px;
+                    height: 100px;
+                    border: 1px solid $border_color;
+                    text-align: center;
+                    line-height: 100px;
+                    background-color: $buttons_operator_color;
+                    box-sizing: border-box;
+                    margin: 0px;
+                    font-size: 30px;
+                }
+
+                .operator:hover {
+                    background-color: $border_color;
+                    cursor: pointer;
+                }
+
+                .calculate {
+                    color: $num_oper_color;
+                    width: 200px;
+                    height: 100px;
+                    border: 1px solid $border_color;
+                    text-align: center;
+                    line-height: 100px;
+                    background-color: $button_calculate_color;
+                    box-sizing: border-box;
+                    margin: 0px;
+                    font-size: 30px;
+                }
+
+                .calculate:hover {
+                    background-color: $buttom_calculate_hover_color;
+                    cursor: pointer;
+                }
             }
         }
+    }
+
+    .trash {
+        color: white;
+        font-size: 25px;
+        left: 940px;
+    }
+
+    .trash:hover {
+        transform: scale(1.2);
+        color: red;
+    }
+
+    .journal {
+        margin: 0 auto;
+        width: 500px;
+        height: 200px;
+        color: $num_oper_color;
+        padding: 15px;
+        font-size: 20px;
+        text-align: right;
+        white-space: pre-line;
+        overflow: auto;
     }
 }
