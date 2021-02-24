@@ -1,0 +1,116 @@
+html {
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.body {
+    background-color: #b0c4de;
+}
+
+.container {
+    width: 1400px;
+    margin: 0 auto;
+    align-items: center;
+
+    .container_content {
+        text-align: center;
+
+        .infoAboutSection, #usersPosts {
+            padding-top: 40px;
+            font-size: 1.5rem;
+            margin-bottom: 0px;
+        }
+
+        .content_buttonRequest {
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+
+        .buttonRequest {
+            background-color: white;
+        }
+
+        .content_users {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+
+        .users {
+            min-width: 200px;
+            min-height: 50px;
+            background-color: white;
+            border-radius: 10px;
+            line-height: 50px;
+            text-align: center;
+            cursor: pointer;
+            margin: 30px 20px;
+        }
+
+        .users:hover {
+            background-color: #e7d49a;
+        }
+
+        .users:focus {
+            background-color: #e7d49a;
+            outline: none;
+        }
+
+        .users:active {
+            transform: scale(1.05);
+        }
+
+        .content_table {
+            width: 600px;
+            margin: 20px auto;
+
+            table {
+                tr > th:nth-child(odd) {
+                    width: 200px;
+                    height: 50px;
+                    padding-left: 20px;
+                    border: 2px solid black;
+                }
+                tr > th:nth-child(even) {
+                    width: 400px;
+                    height: 50px;
+                    padding-left: 20px;
+                    border: 2px solid black;
+                }
+            }
+        }
+
+        .buttonShow {
+            width: 100%;
+            text-align: center;
+        }
+
+        .content_posts_info {
+            text-align: center;
+        }
+        
+        .content_shownPosts {
+            display: flex;
+            justify-content: space-evenly;
+            text-align: center;
+            flex-wrap: wrap;
+
+            .content_post {
+                border: 1px solid black;
+                margin: 30px 20px;
+                width: 500px;
+                min-height: 255px;
+                padding: 20px;
+
+                h1 {
+                    font-size: 2rem;
+                }
+            }
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+    }
+}
