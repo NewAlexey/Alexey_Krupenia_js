@@ -1,0 +1,241 @@
+html {
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.body {
+    background-color: #b8b8b8;
+}
+
+.container {
+    width: 1400px;
+    margin: 0 auto;
+    align-items: center;
+
+    .container_content {
+        text-align: center;
+
+        .div_task-1 {
+            margin-top: 50px;
+            width: 100%;
+
+            .content_task-1 {
+                width: 400px;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+
+                .traffic_light {
+                    height: 100px;
+                    width: 200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border: 1px solid grey;
+                    border-radius: 10px;
+
+                    .red_light {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        margin-left: 20px;
+                        background-color: grey;
+                    }
+
+                    .red_light_on {
+                        background-color: red;
+                    }
+
+                    .yellow_light {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        background-color: grey;
+                    }
+
+                    .yellow_light_on {
+                        background-color: yellow;
+                    }
+
+                    .green_light {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        margin-right: 20px;
+                        background-color: grey;
+                    }
+
+                    .green_light_on {
+                        background-color: green;
+                    }
+                }
+
+                .button-next {
+                    height: 50px;
+                    width: 100px;
+                }
+            }
+        }
+
+        .div_task-2 {
+            margin-top: 50px;
+            width: 100%;
+
+            .content_task-2 {
+                width: 800px;
+                margin: 0 auto;
+                text-align: left;
+
+                .shineBackground {
+                    background-color: hotpink;
+                }
+            }
+
+            .content_task-2 > ol > li {
+                cursor: pointer;
+            }
+        }
+
+        .div_task-3 {
+            margin-top: 50px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .task-3_button {
+                width: 100px;
+            }
+
+            .button-left {
+                position: relative;
+                left: -600px;
+            }
+
+            .button-right {
+                position: relative;
+                right: -600px;
+            }
+        }
+
+        .div_task-4 {
+            margin-top: 50px;
+
+            .random_number {
+                padding: 0 0 30px 0;
+                font-size: 2rem;
+            }
+        }
+
+        .div_task-5 {
+            margin-top: 70px;
+
+            .div_mouseInside {
+                width: 100%;
+                height: 300px;
+                border: 1px solid grey;
+                border-radius: 10px;
+                font-size: 2rem;
+
+                .coordinates {
+                    padding-top: 30px;
+                }
+            }
+        }
+
+        .div_task-6 {
+            margin-top: 70px;
+
+            button {
+                margin-bottom: 30px;
+            }
+        }
+
+        .div_task-7 {
+            margin-top: 70px;
+
+            button {
+                margin-bottom: 30px;
+            }
+        }
+
+        .content_task-7 {
+            display: flex;
+
+            .buttons-task-7 {
+                display: flex;
+                flex-direction: column;
+                width: 80px;
+
+                .button-background {
+                    background-color: khaki;
+                }
+            }
+
+            .div-info-task-7 {
+                padding: 0 30px;
+            }
+        }
+
+        .display-invisible {
+            display: none;
+        }
+
+        .div_task-8 {
+            margin-top: 50px;
+
+            .heading_and_button {
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .button_remove {
+                height: 30px;
+            }
+        }
+
+        .div_task-9 {
+            margin-top: 50px;
+
+            .content_task-9 {
+                width: 300px;
+                margin: 0 auto;
+
+                .div_input {
+                    margin: 20px 0;
+                }
+            }
+        }
+        .div_task-10 {
+            margin-top: 50px;
+
+            table {
+                margin: 0 auto;
+
+                th {
+                    width: 100px;
+                    cursor: pointer;
+                }
+
+                .td_hover {
+                    background-color: lawngreen;
+                }
+            }
+        }
+    }
+}
+
+.tooltip2 {
+    position: fixed;
+    background-color: hotpink;
+    padding: 3px 10px;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.remove-from-DOM {
+    display: none;
+}

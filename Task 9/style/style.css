@@ -1,0 +1,242 @@
+html {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+.body {
+  background-color: #b8b8b8;
+}
+
+.container {
+  width: 1400px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.container .container_content {
+  text-align: center;
+}
+
+.container .container_content .div_task-1 {
+  margin-top: 50px;
+  width: 100%;
+}
+
+.container .container_content .div_task-1 .content_task-1 {
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.container .container_content .div_task-1 .content_task-1 .traffic_light {
+  height: 100px;
+  width: 200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+
+.container .container_content .div_task-1 .content_task-1 .traffic_light .red_light {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-left: 20px;
+  background-color: grey;
+}
+
+.container .container_content .div_task-1 .content_task-1 .traffic_light .red_light_on {
+  background-color: red;
+}
+
+.container .container_content .div_task-1 .content_task-1 .traffic_light .yellow_light {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: grey;
+}
+
+.container .container_content .div_task-1 .content_task-1 .traffic_light .yellow_light_on {
+  background-color: yellow;
+}
+
+.container .container_content .div_task-1 .content_task-1 .traffic_light .green_light {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+  background-color: grey;
+}
+
+.container .container_content .div_task-1 .content_task-1 .traffic_light .green_light_on {
+  background-color: green;
+}
+
+.container .container_content .div_task-1 .content_task-1 .button-next {
+  height: 50px;
+  width: 100px;
+}
+
+.container .container_content .div_task-2 {
+  margin-top: 50px;
+  width: 100%;
+}
+
+.container .container_content .div_task-2 .content_task-2 {
+  width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.container .container_content .div_task-2 .content_task-2 .shineBackground {
+  background-color: hotpink;
+}
+
+.container .container_content .div_task-2 .content_task-2 > ol > li {
+  cursor: pointer;
+}
+
+.container .container_content .div_task-3 {
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container .container_content .div_task-3 .task-3_button {
+  width: 100px;
+}
+
+.container .container_content .div_task-3 .button-left {
+  position: relative;
+  left: -600px;
+}
+
+.container .container_content .div_task-3 .button-right {
+  position: relative;
+  right: -600px;
+}
+
+.container .container_content .div_task-4 {
+  margin-top: 50px;
+}
+
+.container .container_content .div_task-4 .random_number {
+  padding: 0 0 30px 0;
+  font-size: 2rem;
+}
+
+.container .container_content .div_task-5 {
+  margin-top: 70px;
+}
+
+.container .container_content .div_task-5 .div_mouseInside {
+  width: 100%;
+  height: 300px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  font-size: 2rem;
+}
+
+.container .container_content .div_task-5 .div_mouseInside .coordinates {
+  padding-top: 30px;
+}
+
+.container .container_content .div_task-6 {
+  margin-top: 70px;
+}
+
+.container .container_content .div_task-6 button {
+  margin-bottom: 30px;
+}
+
+.container .container_content .div_task-7 {
+  margin-top: 70px;
+}
+
+.container .container_content .div_task-7 button {
+  margin-bottom: 30px;
+}
+
+.container .container_content .content_task-7 {
+  display: flex;
+}
+
+.container .container_content .content_task-7 .buttons-task-7 {
+  display: flex;
+  flex-direction: column;
+  width: 80px;
+}
+
+.container .container_content .content_task-7 .buttons-task-7 .button-background {
+  background-color: khaki;
+}
+
+.container .container_content .content_task-7 .div-info-task-7 {
+  padding: 0 30px;
+}
+
+.container .container_content .display-invisible {
+  display: none;
+}
+
+.container .container_content .div_task-8 {
+  margin-top: 50px;
+}
+
+.container .container_content .div_task-8 .heading_and_button {
+  display: flex;
+  justify-content: space-around;
+}
+
+.container .container_content .div_task-8 .button_remove {
+  height: 30px;
+}
+
+.container .container_content .div_task-9 {
+  margin-top: 50px;
+}
+
+.container .container_content .div_task-9 .content_task-9 {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.container .container_content .div_task-9 .content_task-9 .div_input {
+  margin: 20px 0;
+}
+
+.container .container_content .div_task-10 {
+  margin-top: 50px;
+}
+
+.container .container_content .div_task-10 table {
+  margin: 0 auto;
+}
+
+.container .container_content .div_task-10 table th {
+  width: 100px;
+  cursor: pointer;
+}
+
+.container .container_content .div_task-10 table .td_hover {
+  background-color: lawngreen;
+}
+
+.tooltip2 {
+  position: fixed;
+  background-color: hotpink;
+  padding: 3px 10px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.remove-from-DOM {
+  display: none;
+}
