@@ -144,12 +144,12 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+//Task 5
 let divCoords = document.querySelector("#mouseInside");
 divCoords.addEventListener("mousemove", showCoords);
 divCoords.addEventListener("click", showLeft);
 divCoords.addEventListener("contextmenu", showRight);
 
-//Task 5
 function showCoords(event) {
     let coordX = event.clientX;
     let coordY = event.clientY;
@@ -184,6 +184,7 @@ function showRight() {
         divCoords.append(pRight);
         pRight.innerHTML = "Right";
     }
+    event.preventDefault();
 }
 
 //Task 6
@@ -257,50 +258,31 @@ function showJSContent() {
 
 let arrButtonsRemove = document.querySelector(".div_task-8").querySelectorAll("button");
 arrButtonsRemove.forEach((item) => {
-    item.addEventListener("click", () => {
-        removePost();
-    });
+    item.addEventListener("click", removePost);
 });
 
-function removePost() {
-    let parentNode = event.path[2];
+function removePost(e) {
+    let parentNode = e.path[2];
     parentNode.classList.add("remove-from-DOM");
 }
 
 //Task 9
 let buttonAddPercent = document.querySelector("#buttonAddPercents");
 buttonAddPercent.addEventListener("click", add5Percents);
+let inputPercent = document.querySelector("#input_range");
+inputPercent.addEventListener("mousedown", preventEvent);
 
 function add5Percents() {
-    let input = document.querySelector("#input_range");
-    let value = +input.value;
-    input.value = value + 5;
+    let value = +inputPercent.value;
+    inputPercent.value = value + 5;
 }
 
 //Task 10
 let arrTdTable = document.querySelector(".div_table").querySelectorAll("td");
 arrTdTable.forEach((item) => {
-    item.addEventListener("mouseover", () => {
-        hoverWhileMouse();
-    });
-    item.addEventListener("mouseout", () => {
-        unhoverWhileMouse();
-    });
+    item.addEventListener("mouseover", hoverWhileMouse);
+    item.addEventListener("mouseout", unhoverWhileMouse);
 });
-
-function hoverWhileMouse() {
-    let td = event.target;
-    td.classList.add("td_hover");
-}
-
-function unhoverWhileMouse() {
-    let td = event.target;
-    td.classList.remove("td_hover");
-}
-
-//Task 11
-// let tableage = document.querySelector("#table-age");
-// tableage.addEventListener("click", sortByAge);
 
 let usersArray = [
     { Firstname: "Bill", Lastname: "Gates", Age: 62, Company: "Microsoft" },
@@ -318,9 +300,7 @@ function createTable() {
     for (key in usersArray[0]) {
         let th = document.createElement("th");
         th.innerHTML = key;
-        th.addEventListener("click", () => {
-            sortTable();
-        });
+        th.addEventListener("click", sortTable);
         tr.append(th);
     }
     tbody.append(tr);
@@ -328,6 +308,8 @@ function createTable() {
         let tr = document.createElement("tr");
         for (key in usersArray[i]) {
             let td = document.createElement("td");
+            td.addEventListener("mouseover", hoverWhileMouse);
+            td.addEventListener("mouseout", unhoverWhileMouse);
             td.innerHTML = usersArray[i][key];
             tr.append(td);
         }
@@ -338,8 +320,18 @@ function createTable() {
 }
 createTable();
 
-function sortTable() {
-    let value = event.path[0].innerHTML;
+function hoverWhileMouse(e) {
+    let td = e.target;
+    td.classList.add("td_hover");
+}
+
+function unhoverWhileMouse(e) {
+    let td = e.target;
+    td.classList.remove("td_hover");
+}
+
+function sortTable(e) {
+    let value = e.path[0].innerHTML;
     if (value === "Age") {
         usersArray.sort((a, b) => {
             return a.Age - b.Age;
@@ -349,19 +341,122 @@ function sortTable() {
             if (a.Company > b.Company) return 1;
             if (a.Company < b.Company) return -1;
             return 0;
-        })
+        });
     } else if (value === "Firstname") {
         usersArray.sort((a, b) => {
             if (a.Firstname > b.Firstname) return 1;
             if (a.Firstname < b.Firstname) return -1;
             return 0;
-        })
+        });
     } else {
         usersArray.sort((a, b) => {
             if (a.Lastname > b.Lastname) return 1;
             if (a.Lastname < b.Lastname) return -1;
             return 0;
-        })
+        });
     }
     createTable();
+}
+
+//Task 11
+let divTextareaTask11 = document.querySelector("#div_textarea_task-11");
+document.addEventListener("keydown", removeDivCreateTextarea);
+let arrKey = [];
+
+function removeDivCreateTextarea(event) {
+    let key = event.key;
+    arrKey.push(key);
+    let div = document.querySelector(".content_task-11");
+    let divInsteadTextarea = document.querySelector(".div_textarea_task-11");
+    if (divInsteadTextarea) {
+        if (arrKey[arrKey.length - 2] === "Control" && arrKey[arrKey.length - 1] === "e") {
+            let textareaInsteadDiv = document.createElement("textarea");
+            let value = divInsteadTextarea.innerHTML;
+            textareaInsteadDiv.innerHTML = value;
+            textareaInsteadDiv.setAttribute("cols", "110");
+            textareaInsteadDiv.setAttribute("rows", "8");
+            textareaInsteadDiv.classList.add("textarea_task-11");
+            divInsteadTextarea.remove();
+            div.append(textareaInsteadDiv);
+        }
+    } else {
+        if (arrKey[arrKey.length - 2] === "Control" && arrKey[arrKey.length - 1] === "s") {
+            let divInsteadTextarea = document.createElement("div");
+            let textareaInsteadDiv = document.querySelector(".textarea_task-11");
+            let value = textareaInsteadDiv.value;
+            divInsteadTextarea.innerHTML = value;
+            divInsteadTextarea.classList.add("div_textarea_task-11");
+            textareaInsteadDiv.remove();
+            div.append(divInsteadTextarea);
+        }
+    }
+    if (arrKey[arrKey.length - 2] === "Control" && arrKey[arrKey.length - 1] === "s") {
+        event.preventDefault();
+    }
+    if (arrKey[arrKey.length - 2] === "Control" && arrKey[arrKey.length - 1] === "e") {
+        event.preventDefault();
+    }
+    if (arrKey.length > 100) arrKey = [];
+}
+
+//Task 12
+let buttonLike = document.querySelector(".content_button_like");
+buttonLike.addEventListener("click", plusOneLike);
+
+function plusOneLike() {
+    let divCountLike = document.querySelector(".button_like_number");
+    let value = divCountLike.innerHTML;
+    value = +value + 1;
+    divCountLike.innerHTML = value;
+    buttonLike.classList.add("button_like_transform");
+    setTimeout(removeScale, 100);
+}
+
+function removeScale() {
+    buttonLike.classList.remove("button_like_transform");
+}
+
+//Task 13
+let divHeader = document.querySelector("#header_home");
+divHeader.addEventListener("click", showMenuHome);
+let divCategories = document.querySelector("#header_categories");
+divCategories.addEventListener("click", showMenuHome);
+let divAbout = document.querySelector("#header_about");
+divAbout.addEventListener("click", showMenuHome);
+let divContact = document.querySelector("#header_contact");
+divContact.addEventListener("click", showMenuHome);
+
+const categories = {
+    Dresser: true,
+    Shirts: true,
+    Jeans: true,
+    Shoes: true,
+};
+
+document.addEventListener("mouseover", removeMenu);
+function removeMenu(e) {
+    let target = e.target;
+    if (!target.classList.contains("div_children")) {
+        let div = document.querySelector(".div_parent");
+        if (div) {
+            document.querySelector(".div_parent").remove();
+        }
+    } else return true;
+}
+
+function showMenuHome(e) {
+    let idElem = e.path[0].id
+    let headerHome = document.querySelector(`#${idElem}`);
+    let coordsHome = headerHome.getBoundingClientRect();
+    let divParent = document.createElement("div");
+    divParent.classList.add("div_parent");
+    for (let key in categories) {
+        let div = document.createElement("div");
+        div.innerHTML = key;
+        div.classList.add("div_children");
+        divParent.append(div);
+    }
+    divParent.style.top = coordsHome.bottom + "px";
+    divParent.style.left = coordsHome.left + "px";
+    headerHome.prepend(divParent);
 }
