@@ -269,6 +269,14 @@ html {
 
         .div_task-11 {
             margin-top: 50px;
+
+            .button_up {
+                position: fixed;
+                width: 100px;
+                height: 30px;
+                right: 100px;
+                bottom: 60px;
+            }
         }
 
         .div_task-12 {
@@ -277,7 +285,8 @@ html {
 
             .content_button_like {
                 display: flex;
-                justify-content: center;
+                width: 120px;
+                margin: 0 auto;
                 color: whitesmoke;
                 cursor: pointer;
 
@@ -310,23 +319,55 @@ html {
 
         .div_task-13 {
             margin: 50px 0 100px 0;
+            width: 100%;
+            height: 300px;
 
-            .content_resize_div {
-                border: 1px solid grey;
-                width: 500px;
-                height: 200px;
-                margin: 0 auto;
-                position: relative;
+            .move_div {
+                width: 100%;
+                height: 300px;
+                display: flex;
+                justify-content: center;
 
-                .triangle {
+                .content_move_div {
+                    border: 1px solid grey;
+                    width: 500px;
+                    height: 200px;
+                    margin: 0 auto;
                     position: absolute;
-                    width: 0;
-                    height: 0;
-                    border-bottom: 13px solid red;
-                    border-left: 13px solid transparent;
-                    top: 182px;
-                    left: 481px;
-                    cursor: nwse-resize;
+
+                    .triangle_move {
+                        position: absolute;
+                        border: 13px solid red;
+                        top: 173px;
+                        left: 473px;
+                        cursor: move;
+                    }
+                }
+            }
+
+            .resize_div {
+                width: 100%;
+                height: 300px;
+                display: flex;
+                justify-content: center;
+
+                .content_resize_div {
+                    border: 1px solid grey;
+                    width: 500px;
+                    height: 200px;
+                    margin: 0 auto;
+                    position: absolute;
+
+                    .triangle_resize {
+                        position: absolute;
+                        width: 0;
+                        height: 0;
+                        border-bottom: 13px solid blueviolet;
+                        border-left: 13px solid transparent;
+                        top: 183px;
+                        left: 482px;
+                        cursor: nwse-resize;
+                    }
                 }
             }
         }

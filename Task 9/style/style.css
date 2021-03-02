@@ -275,6 +275,14 @@ html {
   margin-top: 50px;
 }
 
+.container .container_content .div_task-11 .button_up {
+  position: fixed;
+  width: 100px;
+  height: 30px;
+  right: 100px;
+  bottom: 60px;
+}
+
 .container .container_content .div_task-12 {
   margin-top: 50px;
   margin-bottom: 50px;
@@ -282,7 +290,8 @@ html {
 
 .container .container_content .div_task-12 .content_button_like {
   display: flex;
-  justify-content: center;
+  width: 120px;
+  margin: 0 auto;
   color: whitesmoke;
   cursor: pointer;
 }
@@ -316,24 +325,56 @@ html {
 
 .container .container_content .div_task-13 {
   margin: 50px 0 100px 0;
+  width: 100%;
+  height: 300px;
 }
 
-.container .container_content .div_task-13 .content_resize_div {
+.container .container_content .div_task-13 .move_div {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.container .container_content .div_task-13 .move_div .content_move_div {
   border: 1px solid grey;
   width: 500px;
   height: 200px;
   margin: 0 auto;
-  position: relative;
+  position: absolute;
 }
 
-.container .container_content .div_task-13 .content_resize_div .triangle {
+.container .container_content .div_task-13 .move_div .content_move_div .triangle_move {
+  position: absolute;
+  border: 13px solid red;
+  top: 173px;
+  left: 473px;
+  cursor: move;
+}
+
+.container .container_content .div_task-13 .resize_div {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.container .container_content .div_task-13 .resize_div .content_resize_div {
+  border: 1px solid grey;
+  width: 500px;
+  height: 200px;
+  margin: 0 auto;
+  position: absolute;
+}
+
+.container .container_content .div_task-13 .resize_div .content_resize_div .triangle_resize {
   position: absolute;
   width: 0;
   height: 0;
-  border-bottom: 13px solid red;
+  border-bottom: 13px solid blueviolet;
   border-left: 13px solid transparent;
-  top: 182px;
-  left: 481px;
+  top: 183px;
+  left: 482px;
   cursor: nwse-resize;
 }
 

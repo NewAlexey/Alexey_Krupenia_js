@@ -116,12 +116,9 @@ function showTooltipRight() {
     createTooltip();
     let tooltip = buttonTooltipRight.getBoundingClientRect();
     let documentWidth = document.documentElement.clientWidth;
-    console.log(documentWidth);
     let divTooltip = document.querySelector(".tooltip2");
     let right = tooltip.right + 100;
     let left = tooltip.left + 110;
-    console.log(left);
-    console.log(tooltip);
     if (right > documentWidth) left = tooltip.left - 80;
     divTooltip.style.top = tooltip.top + "px";
     divTooltip.style.left = left + "px";
@@ -155,7 +152,6 @@ function showCoords(event) {
     let coordY = event.clientY;
     let info = document.querySelector(".coordinates");
     info.innerHTML = `X = ${coordX}, Y = ${coordY}`;
-    console.log(event.type);
 }
 
 function showLeft() {
@@ -445,7 +441,7 @@ function removeMenu(e) {
 }
 
 function showMenuHome(e) {
-    let idElem = e.path[0].id
+    let idElem = e.path[0].id;
     let headerHome = document.querySelector(`#${idElem}`);
     let coordsHome = headerHome.getBoundingClientRect();
     let divParent = document.createElement("div");
@@ -459,4 +455,73 @@ function showMenuHome(e) {
     divParent.style.top = coordsHome.bottom + "px";
     divParent.style.left = coordsHome.left + "px";
     headerHome.prepend(divParent);
+}
+
+let triggerMove = false;
+
+let moveDivTriangle = document.querySelector(".triangle_move");
+moveDivTriangle.addEventListener("mousedown", changeMoveTriggerTrue);
+moveDivTriangle.addEventListener("mouseup", changeMoveTriggerFalse);
+document.addEventListener("mousemove", moveDiv);
+let divMove = document.querySelector(".content_move_div");
+divMove.addEventListener("mousemove", moveDiv);
+
+function changeMoveTriggerTrue() {
+    triggerMove = true;
+}
+
+function changeMoveTriggerFalse() {
+    triggerMove = false;
+}
+
+function moveDiv(e) {
+    if (triggerMove == true) {
+        divMove.style.top = e.pageY - 195 + "px";
+        divMove.style.left = e.pageX - 490 + "px";
+    }
+}
+
+let triggerResize = false;
+
+let resizeDivTriangle = document.querySelector(".triangle_resize");
+resizeDivTriangle.addEventListener("mousedown", changeResizeTriggerTrue);
+resizeDivTriangle.addEventListener("mouseup", changeResizeTriggerFalse);
+document.addEventListener("mousemove", resizeDiv);
+let divResize = document.querySelector(".content_resize_div");
+divResize.addEventListener("mousemove", resizeDiv);
+
+function changeResizeTriggerTrue() {
+    triggerResize = true;
+}
+
+function changeResizeTriggerFalse() {
+    triggerResize = false;
+}
+
+function resizeDiv(e) {
+    if (triggerResize == true) {
+        let elemCoords = divResize.getBoundingClientRect();
+        divResize.style.height = e.clientY - elemCoords.top + 13 + "px";
+        resizeDivTriangle.style.top = e.clientY - elemCoords.top - 3 + "px";
+        divResize.style.width = e.clientX - elemCoords.left + 13 + "px";
+        resizeDivTriangle.style.left = e.clientX - elemCoords.left - 3 + "px";
+    }
+}
+
+//Task 14
+window.addEventListener("scroll", calcScrollPx);
+let buttonUp = document.querySelector(".button_up");
+buttonUp.addEventListener("click", toTop);
+
+function calcScrollPx() {
+    let coords = document.body.clientHeight;
+    let scroll = document.documentElement.scrollTop;
+    if (scroll > coords - 630) {
+        buttonUp.classList.remove("hidden");
+    }
+}
+
+function toTop() {
+    buttonUp.classList.add("hidden");
+    window.scrollTo({ top: 0 });
 }
