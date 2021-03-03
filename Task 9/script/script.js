@@ -502,8 +502,8 @@ function resizeDiv(e) {
     if (triggerResize == true) {
         let elemCoords = divResize.getBoundingClientRect();
         divResize.style.height = e.clientY - elemCoords.top + 13 + "px";
-        resizeDivTriangle.style.top = e.clientY - elemCoords.top - 3 + "px";
         divResize.style.width = e.clientX - elemCoords.left + 13 + "px";
+        resizeDivTriangle.style.top = e.clientY - elemCoords.top - 3 + "px";
         resizeDivTriangle.style.left = e.clientX - elemCoords.left - 3 + "px";
     }
 }
@@ -524,4 +524,13 @@ function calcScrollPx() {
 function toTop() {
     buttonUp.classList.add("hidden");
     window.scrollTo({ top: 0 });
+}
+
+let ball = document.querySelector(".footbal_ball");
+let footballField = document.querySelector(".footbal_field");
+footballField.addEventListener("click", moveBall);
+
+function moveBall(e) {
+    ball.style.top = e.layerY - 40 + "px";
+    ball.style.left = e.layerX - 40 +"px";
 }

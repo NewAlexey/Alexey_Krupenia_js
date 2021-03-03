@@ -326,7 +326,6 @@ html {
 .container .container_content .div_task-13 {
   margin: 50px 0 100px 0;
   width: 100%;
-  height: 300px;
 }
 
 .container .container_content .div_task-13 .move_div {
@@ -376,6 +375,27 @@ html {
   top: 183px;
   left: 482px;
   cursor: nwse-resize;
+}
+
+.container .container_content .div_task-14 {
+  margin: 50px 0 100px 0;
+}
+
+.container .container_content .div_task-14 .footbal_field {
+  margin: 0 auto;
+  width: 600px;
+  height: 400px;
+  position: relative;
+  background-image: url(../image/footbal_field.jpg);
+}
+
+.container .container_content .div_task-14 .footbal_field .footbal_ball {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background-image: url(../image/footbal_ball.png);
+  background-size: cover;
+  transition: all 0.5s;
 }
 
 .tooltip2 {

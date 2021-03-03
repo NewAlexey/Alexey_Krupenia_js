@@ -320,7 +320,6 @@ html {
         .div_task-13 {
             margin: 50px 0 100px 0;
             width: 100%;
-            height: 300px;
 
             .move_div {
                 width: 100%;
@@ -368,6 +367,27 @@ html {
                         left: 482px;
                         cursor: nwse-resize;
                     }
+                }
+            }
+        }
+
+        .div_task-14 {
+            margin: 50px 0 100px 0;
+
+            .footbal_field {
+                margin: 0 auto;
+                width: 600px;
+                height: 400px;
+                position: relative;
+                background-image: url(../image/footbal_field.jpg);
+
+                .footbal_ball {
+                    position: absolute;
+                    width: 80px;
+                    height: 80px;
+                    background-image: url(../image/footbal_ball.png);
+                    background-size: cover;
+                    transition: all 0.5s;
                 }
             }
         }
