@@ -1,0 +1,50 @@
+html {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+.body {
+  background-color: #b8b8b8;
+}
+
+.container {
+  width: 1400px;
+  margin: 0 auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.container h1 {
+  margin-top: 30px;
+}
+
+.container .content_input {
+  padding-top: 50px;
+}
+
+.container ol {
+  margin-top: 50px;
+  user-select: none;
+}
+
+.container ol li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.container ol li > span {
+  padding-right: 100px;
+}
+
+.container ol li > button {
+  margin: 0 10px;
+}
+
+.container .modal_content {
+  position: fixed;
+}
+
+.hidden {
+  display: none;
+}
