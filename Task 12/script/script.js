@@ -5,6 +5,13 @@ const ruNum = ["ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=",
 const leftSideButtons = ["Tab", "Caps Lock", "Shift"];
 const rightSideButtons = ["Enter", "Shift"];
 const bottomLineButtons = ["Ctrl", "W", "Alt", "Space", "Alt", "W", "Clear", "Ctrl"];
+const specialButtonsRightSide = ["Insert", "Home", "Page Up", "Delete", "End", "Page Down"];
+const arrowsButtons = [
+    '<i class="fas fa-arrow-up"></i>',
+    '<i class="fas fa-arrow-left"></i>',
+    '<i class="fas fa-arrow-down"></i>',
+    '<i class="fas fa-arrow-right"></i>',
+];
 
 const ruNumShift = ["Ё", "!", '"', "№", ";", "%", ":", "?", "*", "(", ")", "_", "+", "Backspace"];
 const engNumShift = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "Backspace"];
@@ -20,6 +27,8 @@ let keyword = {
     leftSideButtons: leftSideButtons,
     rightSideButtons: rightSideButtons,
     bottomButtons: bottomLineButtons,
+    specialButtons: specialButtonsRightSide,
+    arrows: arrowsButtons,
     engLang: true,
     capsLock: false,
     shift: false,
@@ -29,16 +38,27 @@ let keyword = {
 createKeyword(keyword);
 
 function createKeyword(obj) {
-    let keyword = document.querySelector(".keyword");
-    let keywordTopLine = createElem("div", "keyword_top_line");
-    let keywordMiddleLine = createElem("div", "keyword_middle_line");
-    let keywordBotLine = createElem("div", "keyword_bot_line");
+    const keyword = document.querySelector(".keyword");
+    const keywordMain = createElem("div", "keyword-wrapper_main-buttons");
+    const keywordTopLine = createElem("div", "keyword_top_line");
+    const keywordMiddleLine = createElem("div", "keyword_middle_line");
+    const keywordBotLine = createElem("div", "keyword_bot_line");
+
+    const keywordSpecial = createElem("div", "keyword-wrapper_special-buttons");
+    const keywordSpecialTopButtons = createElem("div", "special-buttons");
+    const keywordSpecialArrowButtons = createElem("div", "arrow-buttons");
     createNumbersKeys(obj, keywordTopLine);
     createMainKeys(obj, keywordMiddleLine);
     createBottomKeys(obj, keywordBotLine);
-    keyword.append(keywordTopLine);
-    keyword.append(keywordMiddleLine);
-    keyword.append(keywordBotLine);
+    createSpecialKeys(obj, keywordSpecialTopButtons);
+    createArrowKeys(obj, keywordSpecialArrowButtons);
+    keywordMain.append(keywordTopLine);
+    keywordMain.append(keywordMiddleLine);
+    keywordMain.append(keywordBotLine);
+    keywordSpecial.append(keywordSpecialTopButtons);
+    keywordSpecial.append(keywordSpecialArrowButtons);
+    keyword.append(keywordMain);
+    keyword.append(keywordSpecial);
 }
 
 function createElem(elem, cls) {
@@ -67,7 +87,7 @@ function createMainKeys(obj, path) {
     let elemRight = createElem("div", "middle_right");
     path.append(fillInKeys(obj.leftSideButtons, elemLeft, "special_buttons"));
     path.append(fillInKeys(obj.eng, elemMiddle, "keywords_div"));
-    path.append(fillInKeys(obj.rightSideButtons, elemRight, "middle_enter", "middle_shift"));
+    path.append(fillInKeys(obj.rightSideButtons, elemRight, "enter", "right_shift"));
 }
 
 function fillInKeys(objKey, path, cls, ...args) {
@@ -90,11 +110,30 @@ function fillInKeys(objKey, path, cls, ...args) {
 }
 
 function createBottomKeys(obj, path) {
-    obj.bottomButtons.forEach((item, index) => {
-        let div = createElem("div", "bottom_line_buttons");
+    obj.bottomButtons.forEach((item) => {
+        const div = createElem("div", "bottom_line_buttons");
         div.innerHTML = item;
         if (div.innerHTML === "Space") {
             div.classList.add("space");
+        }
+        path.append(div);
+    });
+}
+
+function createSpecialKeys(obj, path) {
+    obj.specialButtons.forEach((item) => {
+        const div = createElem("div", "buttons-cursor-control");
+        div.innerHTML = item;
+        path.append(div);
+    });
+}
+
+function createArrowKeys(obj, path) {
+    obj.arrows.forEach((item) => {
+        const div = createElem("div", "buttons-cursor-control");
+        div.innerHTML = item;
+        if (div.innerHTML === '<i class="fas fa-arrow-up"></i>') {
+            div.classList.add("arrow_up");
         }
         path.append(div);
     });
@@ -129,31 +168,55 @@ function changeCaseDown() {
     keyword.capsLock = false;
 }
 
-const altLeft = document.querySelectorAll(".bottom_line_buttons")[2];
-altLeft.addEventListener("click", altLeftToggle);
+const bottomLineLetters = Array.from(document.querySelectorAll(".bottom_line_buttons"));
+let rightAltIndex = findRightAlt();
 
-function altLeftToggle() {
-    altLeft.classList.toggle("active");
+function findRightAlt() {
+    let altIndex;
+    bottomLineLetters.forEach((item, index) => {
+        if (item.innerHTML === "Alt") altIndex = index;
+    });
+    return altIndex;
+}
+
+const leftAlt = bottomLineLetters.find((elem) => elem.innerHTML === "Alt");
+const rightAlt = bottomLineLetters[rightAltIndex];
+leftAlt.addEventListener("click", altToggle);
+rightAlt.addEventListener("click", altToggle);
+
+function altToggle() {
+    rightAlt.classList.toggle("active");
+    leftAlt.classList.toggle("active");
     keyword.alt ? (keyword.alt = false) : (keyword.alt = true);
     if (keyword.alt === true && keyword.shift === true) changeLang();
 }
 
-const shift = arraySpecialButtons.find((elem) => elem.innerHTML === "Shift");
-shift.addEventListener("click", shiftToggle);
+const leftShift = arraySpecialButtons.find((elem) => elem.innerHTML === "Shift");
+const rightShift = document.querySelector(".right_shift");
+leftShift.addEventListener("click", shiftToggle);
+rightShift.addEventListener("click", shiftToggle);
 
 function shiftToggle() {
-    shift.classList.toggle("active");
-    keyword.shift ? (keyword.shift = false) : (keyword.shift = true);
-    keyword.shift ? changeLettersOnShiftClick() : reverseLettersOnShiftClick();
-    changeLetterCase();
+    textAreaOnFocus();
+    changeLettersOnKeyboad();
     if (keyword.alt === true && keyword.shift === true) {
         changeLang();
     }
 }
 
+function changeLettersOnKeyboad() {
+    leftShift.classList.toggle("active");
+    rightShift.classList.toggle("active");
+    keyword.shift ? (keyword.shift = false) : (keyword.shift = true);
+    keyword.shift ? changeLettersOnShiftClick() : reverseLettersOnShiftClick();
+    changeLetterCase();
+}
+
 function changeLang() {
-    shift.classList.toggle("active");
-    altLeft.classList.toggle("active");
+    leftShift.classList.toggle("active");
+    rightShift.classList.toggle("active");
+    leftAlt.classList.toggle("active");
+    rightAlt.classList.toggle("active");
     keyword.alt = false;
     keyword.shift = false;
     keyword.engLang ? changeLangRu(keyword) : changeLangEng(keyword);
@@ -173,7 +236,7 @@ function changeLangRu(obj) {
 
 function changeLangEng(obj) {
     keyword.engLang = true;
-    let lettArr = document.querySelectorAll(".keywords_div");
+    const lettArr = document.querySelectorAll(".keywords_div");
     let i = 0;
     obj.eng.forEach((item) => {
         lettArr[i].innerHTML = item;
@@ -189,7 +252,7 @@ function changeLettersOnShiftClick() {
 }
 
 function changeShiftNumbers() {
-    let arrNum = document.querySelectorAll(".numbers_div");
+    const arrNum = document.querySelectorAll(".numbers_div");
     let i = 0;
     if (keyword.engLang) {
         arrNum.forEach((item) => {
@@ -205,7 +268,7 @@ function changeShiftNumbers() {
 }
 
 function changeShiftLetters() {
-    let arrLet = document.querySelectorAll(".keywords_div");
+    const arrLet = document.querySelectorAll(".keywords_div");
     let i = 0;
     if (keyword.engLang) {
         arrLet.forEach((item) => {
@@ -226,7 +289,7 @@ function reverseLettersOnShiftClick() {
 }
 
 function reverseShiftLetters() {
-    let arrLet = document.querySelectorAll(".keywords_div");
+    const arrLet = document.querySelectorAll(".keywords_div");
     let i = 0;
     if (keyword.engLang) {
         arrLet.forEach((item) => {
@@ -242,7 +305,7 @@ function reverseShiftLetters() {
 }
 
 function reverseShiftNumbers() {
-    let arrNum = document.querySelectorAll(".numbers_div");
+    const arrNum = document.querySelectorAll(".numbers_div");
     let i = 0;
     if (keyword.engLang) {
         arrNum.forEach((item) => {
@@ -259,13 +322,50 @@ function reverseShiftNumbers() {
 
 document.addEventListener("click", handleClick);
 function handleClick(e) {
+    textAreaOffFocus(e);
     if (e.target.classList.contains("keywords_div")) insertLettIntoTextArea(e);
     if (e.target.classList.contains("numbers_div")) insertLettIntoTextArea(e);
 }
 const textarea = document.querySelector(".input_textarea");
+
+let selectTextArea = 0;
 function insertLettIntoTextArea(e) {
-    let value = e.target.innerHTML;
-    textarea.value += value;
+    const textareaStart = textarea.selectionStart;
+    const textareaEnd = textarea.selectionEnd;
+    const valueLength = textarea.value.length;
+    if (textareaStart === textareaEnd && textareaStart === valueLength) {
+        let value = e.target.innerHTML;
+        value = checkValue(value);
+        textarea.value += value;
+        textAreaOnFocus();
+        if (keyword.shift === true) {
+            changeLettersOnKeyboad();
+        }
+    } else if (textareaStart === textareaEnd) {
+        let value = e.target.innerHTML;
+        const valueStart = textarea.value.slice(0, textarea.selectionStart);
+        const valueEnd = textarea.value.slice(textarea.selectionEnd, textarea.value.length);
+        value = checkValue(value);
+        textarea.value = valueStart + value + valueEnd;
+        textAreaOnFocus();
+        textarea.setSelectionRange(textareaStart + 1, textareaEnd + 1);
+        if (keyword.shift === true) {
+            changeLettersOnKeyboad();
+        }
+    } else {
+        let value = e.target.innerHTML;
+        value = checkValue(value);
+        textarea.setRangeText(value);
+        textAreaOnFocus();
+        textarea.setSelectionRange(textareaStart + 1, textareaEnd + 1);
+    }
+}
+
+function checkValue(val) {
+    if (val === "&amp;") val = "&";
+    if (val === "&lt;") val = "<";
+    if (val === "&gt;") val = ">";
+    return val;
 }
 
 let space = document.querySelector(".space");
@@ -273,19 +373,34 @@ space.addEventListener("click", addSpaceIntoTextarea);
 
 function addSpaceIntoTextarea() {
     textarea.value += " ";
+    textAreaOnFocus();
 }
 
 const backspace = document.querySelector(".backspace");
 backspace.addEventListener("click", deleteElementsInTextarea);
 
+textarea.addEventListener("select", deleteRange);
+let coordsSelectValue = [];
+function deleteRange() {
+    coordsSelectValue[0] = textarea.selectionStart;
+    coordsSelectValue[1] = textarea.selectionEnd;
+}
+
 function deleteElementsInTextarea() {
-    if (coordsSelectValue.length === 0) {
-        let value = textarea.value;
-        textarea.value = "";
-        textarea.value = value.slice(0, value.length - 1);
-    } else {
-        textarea.value = textarea.value.slice(0, coordsSelectValue[0]) +  textarea.value.slice(coordsSelectValue[1]);
+    if (textarea.selectionStart === 0 && textarea.selectionEnd === 0) return;
+    if (textarea.selectionStart === textarea.selectionEnd) {
+        const textareaCursor = textarea.selectionStart;
+        const valueStart = textarea.value.slice(0, textarea.selectionStart - 1);
+        const valueEnd = textarea.value.slice(textarea.selectionStart, textarea.value.length);
+        textarea.value = valueStart + valueEnd;
         coordsSelectValue.length = 0;
+        textAreaOnFocus();
+        textarea.setSelectionRange(textareaCursor - 1, textareaCursor - 1);
+    } else {
+        textarea.value = textarea.value.slice(0, coordsSelectValue[0]) + textarea.value.slice(coordsSelectValue[1]);
+        coordsSelectValue.length = 0;
+        textAreaOnFocus();
+        textarea.setSelectionRange(textarea.selectionStart - 1, textarea.selectionStart - 1);
     }
 }
 
@@ -295,13 +410,70 @@ clear.addEventListener("click", clearTextArea);
 
 function clearTextArea() {
     textarea.value = "";
+    textAreaOnFocus();
 }
 
-textarea.addEventListener("select", consol);
+function textAreaOnFocus() {
+    if (!textarea.classList.contains("focused")) {
+        textarea.classList.add("focused");
+        textarea.focus();
+    }
+    textarea.focus();
+}
 
-let coordsSelectValue = [];
+function textAreaOffFocus(e) {
+    const target = e.target.classList;
+    if (
+        e.target.nodeName === "HTML" ||
+        target.contains("container") ||
+        target.contains("body") ||
+        target.contains("keyword") ||
+        target.contains("middle_right") ||
+        target.contains("keyword_bot_line") ||
+        target.contains("arrow-buttons") ||
+        target.contains("keyword-wrapper_special-buttons") ||
+        target.contains("keyword_top_line")
+    ) {
+        textarea.blur();
+        textarea.classList.remove("focused");
+    }
+}
 
-function consol() {
-    coordsSelectValue[0] = textarea.selectionStart;
-    coordsSelectValue[1] = textarea.selectionEnd;
+const buttonsCursorControl = document.querySelectorAll(".buttons-cursor-control");
+buttonsCursorControl.forEach(item => {
+    if (item.innerHTML === "Home") {
+        item.addEventListener("click", goHomeButton)
+    }
+    if (item.innerHTML === "End") {
+        item.addEventListener("click", goEndButton)
+    }
+})
+
+function goHomeButton() {
+    textAreaOnFocus()
+    textarea.setSelectionRange(0, 0);
+}
+
+function goEndButton() {
+    textAreaOnFocus()
+    textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+}
+
+const arrowsArr = document.querySelectorAll(".buttons-cursor-control");
+arrowsArr[7].addEventListener("click", changePositionTextareaLeft)
+arrowsArr[9].addEventListener("click", changePositionTextareaRight)
+
+function changePositionTextareaLeft() {
+    textAreaOnFocus()
+    const textareaStart = textarea.selectionStart;
+    if (textareaStart === 0) {
+        textarea.setSelectionRange(0, 0);
+    } else {
+        textarea.setSelectionRange(textareaStart - 1,textareaStart - 1);
+    }
+}
+
+function changePositionTextareaRight() {
+    textAreaOnFocus()
+    textarea.setSelectionRange(textarea.selectionEnd + 1, textarea.selectionEnd + 1);
 }
