@@ -203,7 +203,7 @@ html {
           background-color: $active_buttons;
         }
 
-        .space {
+        #space {
           height: 58px;
           width: 465px;
           border-radius: 20px;
@@ -221,7 +221,7 @@ html {
         width: 230px;
         font-size: 1rem;
 
-        .buttons-cursor-control {
+        .buttons_cursor_control {
           height: 58px;
           width: 58px;
           display: flex;
@@ -233,11 +233,11 @@ html {
           text-align: center;
         }
 
-        .buttons-cursor-control:hover {
+        .buttons_cursor_control:hover {
           background-color: $hover_buttons;
         }
 
-        .buttons-cursor-control:active {
+        .buttons_cursor_control:active {
           background-color: $active_buttons;
         }
       }
@@ -249,7 +249,7 @@ html {
         font-size: 1rem;
         margin-top: 58px;
 
-        .buttons-cursor-control {
+        .buttons_cursor_control {
           height: 58px;
           width: 58px;
           display: flex;

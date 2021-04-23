@@ -2,7 +2,7 @@ const engLet = `qwertyuiop[]asdfghjkl;'\\zxcvbnm,./`.split("");
 const ruLet = `йцукенгшщзхъфывапролджэячсмитьбю.\\`.split("");
 const engNum = ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace"];
 const ruNum = ["ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace"];
-const leftSideButtons = ["Tab", "Caps Lock", "Shift"];
+const leftSideButtons = ["Tab", "CapsLock", "Shift"];
 const rightSideButtons = ["Enter", "Shift"];
 const bottomLineButtons = ["Ctrl", "W", "Alt", "Space", "Alt", "W", "Clear", "Ctrl"];
 const specialButtonsRightSide = ["Insert", "Home", "Page Up", "Delete", "End", "Page Down"];
@@ -35,6 +35,18 @@ let keyword = {
   alt: false,
   inputType: false,
 };
+
+// function createButtonsSpecial(object, path) {
+//   for (const [key, value] of Object.entries(object)) {
+//     keyword[key].forEach((el) => {
+//       const div = createDivWithClass(value);
+//       div.innerHTML = el;
+//       if (el === "Space") div.id = "space";
+//       if (el === "Insert") div.id = "insert";
+//       path.append(div)
+//     });
+//   }
+// }
 
 createKeyword(keyword);
 
@@ -96,6 +108,9 @@ function fillInKeys(objKey, path, cls, ...args) {
     objKey.forEach((item) => {
       let div = createElem("div", cls);
       div.innerHTML = item;
+      if (item === "Shift") {
+        div.id = `shift_1`;
+      }
       path.append(div);
     });
     return path;
@@ -105,6 +120,7 @@ function fillInKeys(objKey, path, cls, ...args) {
     if (cls === "enter") {
       div1.id = "enter";
     }
+    div2.id = "shift_2";
     div1.innerHTML = objKey[0];
     div2.innerHTML = objKey[1];
     path.append(div1);
@@ -114,11 +130,14 @@ function fillInKeys(objKey, path, cls, ...args) {
 }
 
 function createBottomKeys(obj, path) {
-  obj.bottomButtons.forEach((item) => {
+  obj.bottomButtons.forEach((item, i) => {
     const div = createElem("div", "bottom_line_buttons");
     div.innerHTML = item;
-    if (div.innerHTML === "Space") {
-      div.classList.add("space");
+    if (item === "Space") {
+      div.id = "space";
+    }
+    if (item === "Alt") {
+      div.id = `alt_${i}`;
     }
     path.append(div);
   });
@@ -126,7 +145,7 @@ function createBottomKeys(obj, path) {
 
 function createSpecialKeys(obj, path) {
   obj.specialButtons.forEach((item) => {
-    const div = createElem("div", "buttons-cursor-control");
+    const div = createElem("div", "buttons_cursor_control");
     div.innerHTML = item;
     if (item === "Insert") {
       div.id = "insert";
@@ -137,7 +156,7 @@ function createSpecialKeys(obj, path) {
 
 function createArrowKeys(obj, path) {
   obj.arrows.forEach((item) => {
-    const div = createElem("div", "buttons-cursor-control");
+    const div = createElem("div", "buttons_cursor_control");
     div.innerHTML = item;
     if (div.innerHTML === '<i class="fas fa-arrow-up"></i>') {
       div.classList.add("arrow_up");
@@ -156,185 +175,134 @@ function createArrowKeys(obj, path) {
   });
 }
 
-const arraySpecialButtons = Array.from(document.querySelectorAll(".special_buttons"));
-const capsLock = arraySpecialButtons.find((elem) => elem.innerHTML === "Caps Lock");
-capsLock.addEventListener("click", changeCaseCapsLock);
+const valuesOfButtons = ["Clear", "Backspace", "Alt", "Shift", "CapsLock", "Home", "End", "Space", "Delete"];
+const namesOfFunction = [
+  "pushButtonBackspace",
+  "altToggle",
+  "goHomeButton",
+  "goEndButton",
+  "shiftToggle",
+  "addSpaceIntoTextarea",
+  "clearTextArea",
+  "changeCaseCapsLock",
+  "pushButtonDelete",
+];
+
+function addListenerForKeys(obj) {
+  const arrWithButtons = document.querySelectorAll("div");
+  arrWithButtons.forEach((div) => {
+    valuesOfButtons.forEach((valueOfBtn) => {
+      if (div.innerHTML === valueOfBtn) {
+        div.addEventListener("click", obj[div.innerHTML]);
+      }
+    });
+  });
+}
+
+const specialFunctions = {
+  Clear: clearTextArea,
+  Backspace: pushButtonBackspace,
+  Alt: altToggle,
+  Shift: shiftToggle,
+  CapsLock: changeCaseCapsLock,
+  Home: goHomeButton,
+  End: goEndButton,
+  Space: addSpaceIntoTextarea,
+  Delete: pushButtonDelete,
+};
+
+addListenerForKeys(specialFunctions);
+
+function clearTextArea() {
+  textarea.value = "";
+  textAreaOnFocus();
+}
+
+function goHomeButton() {
+  textAreaOnFocus();
+  textarea.setSelectionRange(0, 0);
+}
+
+function goEndButton() {
+  textAreaOnFocus();
+  textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+}
 
 function changeCaseCapsLock() {
-  capsLock.classList.toggle("active");
+  this.classList.toggle("active");
   changeLetterCase();
 }
 
 function changeLetterCase() {
   !keyword.capsLock ? (keyword.capsLock = true) : (keyword.capsLock = false);
-  keyword.capsLock ? changeCaseUp() : changeCaseDown();
+  keyword.capsLock ? changeCase("toUpperCase") : changeCase("toLowerCase");
 }
 
-function changeCaseUp() {
-  let lettArr = document.querySelectorAll(".keywords_div");
+function changeCase(param) {
+  const lettArr = document.querySelectorAll(".keywords_div");
   lettArr.forEach((item) => {
-    item.innerHTML = item.innerHTML.toUpperCase();
+    item.innerHTML = item.innerHTML[param]();
   });
-  keyword.capsLock = true;
+  keyword.capsLock ? (keyword.capsLock = true) : (keyword.capsLock = false);
 }
-function changeCaseDown() {
-  let lettArr = document.querySelectorAll(".keywords_div");
-  lettArr.forEach((item) => {
-    item.innerHTML = item.innerHTML.toLowerCase();
-  });
-  keyword.capsLock = false;
-}
-
-const bottomLineLetters = Array.from(document.querySelectorAll(".bottom_line_buttons"));
-let rightAltIndex = findRightAlt();
-
-function findRightAlt() {
-  let altIndex;
-  bottomLineLetters.forEach((item, index) => {
-    if (item.innerHTML === "Alt") altIndex = index;
-  });
-  return altIndex;
-}
-
-const leftAlt = bottomLineLetters.find((elem) => elem.innerHTML === "Alt");
-const rightAlt = bottomLineLetters[rightAltIndex];
-leftAlt.addEventListener("click", altToggle);
-rightAlt.addEventListener("click", altToggle);
 
 function altToggle() {
-  rightAlt.classList.toggle("active");
-  leftAlt.classList.toggle("active");
+  alt_2.classList.toggle("active");
+  alt_4.classList.toggle("active");
   keyword.alt ? (keyword.alt = false) : (keyword.alt = true);
-  if (keyword.alt === true && keyword.shift === true) changeLang();
+  if (checkAltAndShift()) changeKeyboard();
 }
-
-const leftShift = arraySpecialButtons.find((elem) => elem.innerHTML === "Shift");
-const rightShift = document.querySelector(".right_shift");
-leftShift.addEventListener("click", shiftToggle);
-rightShift.addEventListener("click", shiftToggle);
 
 function shiftToggle() {
-  textAreaOnFocus();
-  changeLettersOnKeyboad();
-  if (keyword.alt === true && keyword.shift === true) {
-    changeLang();
-  }
-}
-
-function changeLettersOnKeyboad() {
-  leftShift.classList.toggle("active");
-  rightShift.classList.toggle("active");
+  shift_1.classList.toggle("active");
+  shift_2.classList.toggle("active");
   keyword.shift ? (keyword.shift = false) : (keyword.shift = true);
-  keyword.shift ? changeLettersOnShiftClick() : reverseLettersOnShiftClick();
+  changeKeysOnKeyboard();
   changeLetterCase();
+  if (checkAltAndShift()) changeKeyboard();
+  textAreaOnFocus();
 }
 
-function changeLang() {
-  leftShift.classList.toggle("active");
-  rightShift.classList.toggle("active");
-  leftAlt.classList.toggle("active");
-  rightAlt.classList.toggle("active");
+function checkAltAndShift() {
+  if (keyword.alt && keyword.shift) return true;
+  else return false;
+}
+
+function changeKeyboard() {
+  shift_1.classList.toggle("active");
+  shift_2.classList.toggle("active");
+  alt_2.classList.toggle("active");
+  alt_4.classList.toggle("active");
   keyword.alt = false;
   keyword.shift = false;
-  keyword.engLang ? changeLangRu(keyword) : changeLangEng(keyword);
+  keyword.engLang ? changeLang("ru") : changeLang("eng");
 }
 
-function changeLangRu(obj) {
-  keyword.engLang = false;
-  let lettArr = document.querySelectorAll(".keywords_div");
-  let i = 0;
-  obj.ru.forEach((item) => {
-    lettArr[i].innerHTML = item;
-    i++;
-  });
-  changeLetterCase();
-  reverseLettersOnShiftClick();
-}
-
-function changeLangEng(obj) {
-  keyword.engLang = true;
+function changeLang(param) {
+  keyword.engLang ? (keyword.engLang = false) : (keyword.engLang = true);
   const lettArr = document.querySelectorAll(".keywords_div");
-  let i = 0;
-  obj.eng.forEach((item) => {
+  keyword[param].forEach((item, i) => {
     lettArr[i].innerHTML = item;
-    i++;
   });
   changeLetterCase();
-  reverseLettersOnShiftClick();
+  changeKeysOnKeyboard();
 }
 
-function changeLettersOnShiftClick() {
-  changeShiftNumbers();
-  changeShiftLetters();
-}
-
-function changeShiftNumbers() {
-  const arrNum = document.querySelectorAll(".numbers_div");
-  let i = 0;
+function changeKeysOnKeyboard() {
   if (keyword.engLang) {
-    arrNum.forEach((item) => {
-      item.innerHTML = engNumShift[i];
-      i++;
-    });
+    keyword.shift ? changeKeys(engNumShift, ".numbers_div") : changeKeys(engNum, ".numbers_div");
+    keyword.shift ? changeKeys(engLetShift, ".keywords_div") : changeKeys(engLet, ".keywords_div");
   } else {
-    arrNum.forEach((item) => {
-      item.innerHTML = ruNumShift[i];
-      i++;
-    });
+    keyword.shift ? changeKeys(ruNumShift, ".numbers_div") : changeKeys(ruNum, ".numbers_div");
+    keyword.shift ? changeKeys(ruLetShift, ".keywords_div") : changeKeys(ruLet, ".keywords_div");
   }
 }
 
-function changeShiftLetters() {
-  const arrLet = document.querySelectorAll(".keywords_div");
-  let i = 0;
-  if (keyword.engLang) {
-    arrLet.forEach((item) => {
-      item.innerHTML = engLetShift[i];
-      i++;
-    });
-  } else {
-    arrLet.forEach((item) => {
-      item.innerHTML = ruLetShift[i];
-      i++;
-    });
-  }
-}
-
-function reverseLettersOnShiftClick() {
-  reverseShiftLetters();
-  reverseShiftNumbers();
-}
-
-function reverseShiftLetters() {
-  const arrLet = document.querySelectorAll(".keywords_div");
-  let i = 0;
-  if (keyword.engLang) {
-    arrLet.forEach((item) => {
-      item.innerHTML = engLet[i];
-      i++;
-    });
-  } else {
-    arrLet.forEach((item) => {
-      item.innerHTML = ruLet[i];
-      i++;
-    });
-  }
-}
-
-function reverseShiftNumbers() {
-  const arrNum = document.querySelectorAll(".numbers_div");
-  let i = 0;
-  if (keyword.engLang) {
-    arrNum.forEach((item) => {
-      item.innerHTML = engNum[i];
-      i++;
-    });
-  } else {
-    arrNum.forEach((item) => {
-      item.innerHTML = ruNum[i];
-      i++;
-    });
-  }
+function changeKeys(lang, nameClassOfBtns) {
+  const arrNum = document.querySelectorAll(nameClassOfBtns);
+  arrNum.forEach((item, i) => {
+    item.innerHTML = lang[i];
+  });
 }
 
 document.addEventListener("click", handleClick);
@@ -345,44 +313,16 @@ function handleClick(e) {
 }
 const textarea = document.querySelector(".input_textarea");
 
-let selectTextArea = 0;
 function insertLettIntoTextArea(e) {
-  const textareaStart = textarea.selectionStart;
-  const textareaEnd = textarea.selectionEnd;
-  const valueLength = textarea.value.length;
-  if (textareaStart === textareaEnd && textareaStart === valueLength && keyword.inputType === false) {
-    let value = e.target.innerHTML;
-    value = checkValue(value);
-    textarea.value += value;
-    textAreaOnFocus();
-    if (keyword.shift === true) {
-      changeLettersOnKeyboad();
-    }
-  } else if (textareaStart === textareaEnd && keyword.inputType === false) {
-    let value = e.target.innerHTML;
-    const valueStart = textarea.value.slice(0, textarea.selectionStart);
-    const valueEnd = textarea.value.slice(textarea.selectionEnd, textarea.value.length);
-    value = checkValue(value);
-    textarea.value = valueStart + value + valueEnd;
-    textAreaOnFocus();
-    textarea.setSelectionRange(textareaStart + 1, textareaEnd + 1);
-    if (keyword.shift === true) {
-      changeLettersOnKeyboad();
-    }
-  } else if (textareaStart !== textareaEnd) {
-    let value = e.target.innerHTML;
-    value = checkValue(value);
-    textarea.setRangeText(value);
-    textAreaOnFocus();
-    textarea.setSelectionRange(textareaStart, textareaEnd);
-  } else if (keyword.inputType === true) {
-    let value = e.target.innerHTML;
-    value = checkValue(value);
-    textAreaOnFocus();
-    textarea.setSelectionRange(textareaStart, textareaEnd + 1);
-    textarea.setRangeText(value);
-    textarea.setSelectionRange(textareaStart + 1, textareaStart + 1);
+  let value = e.target.innerHTML;
+  value = checkValue(value);
+  if (!keyword.inputType) {
+    textarea.setRangeText(value, textarea.selectionStart, textarea.selectionEnd, "end");
+    if (keyword.shift) shiftToggle();
+  } else {
+    textarea.setRangeText(value, textarea.selectionStart, textarea.selectionEnd + 1, "end");
   }
+  textAreaOnFocus();
 }
 
 function checkValue(val) {
@@ -392,62 +332,33 @@ function checkValue(val) {
   return val;
 }
 
-let space = document.querySelector(".space");
-space.addEventListener("click", addSpaceIntoTextarea);
-
 function addSpaceIntoTextarea() {
-  const textareaStart = textarea.selectionStart;
-  const textareaEnd = textarea.selectionEnd;
-  const valueStart = textarea.value.slice(0, textarea.selectionStart);
-  let valueEnd = textarea.value.slice(textarea.selectionEnd, textarea.value.length);
-  let newValue = valueStart + " " + valueEnd;
-  if (keyword.inputType === true) {
-    valueEnd = textarea.value.slice(textarea.selectionEnd + 1, textarea.value.length);
-    newValue = valueStart + " " + valueEnd;
+  !keyword.inputType
+    ? textarea.setRangeText(" ", textarea.selectionStart, textarea.selectionEnd, "end")
+    : textarea.setRangeText(" ", textarea.selectionStart, textarea.selectionEnd + 1, "end");
+  textAreaOnFocus();
+}
+
+function pushButtonBackspace() {
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  if (start === end && start === 0) {
     textAreaOnFocus();
-    textarea.value = newValue;
-    textarea.setSelectionRange(textareaStart + 1, textareaStart + 1);
     return;
   }
-  textarea.value = newValue;
+  start !== end ? textarea.setRangeText("", start, end, "end") : textarea.setRangeText("", start - 1, end, "end");
   textAreaOnFocus();
-  textarea.setSelectionRange(textareaStart + 1, textareaStart + 1);
 }
 
-const backspace = document.querySelector(".backspace");
-backspace.addEventListener("click", deleteElementsInTextarea);
-
-textarea.addEventListener("select", deleteRange);
-let coordsSelectValue = [];
-function deleteRange() {
-  coordsSelectValue[0] = textarea.selectionStart;
-  coordsSelectValue[1] = textarea.selectionEnd;
-}
-
-function deleteElementsInTextarea() {
-  if (textarea.selectionStart === 0 && textarea.selectionEnd === 0) return;
-  if (textarea.selectionStart === textarea.selectionEnd) {
-    const textareaCursor = textarea.selectionStart;
-    const valueStart = textarea.value.slice(0, textarea.selectionStart - 1);
-    const valueEnd = textarea.value.slice(textarea.selectionStart, textarea.value.length);
-    textarea.value = valueStart + valueEnd;
-    coordsSelectValue.length = 0;
-    textAreaOnFocus();
-    textarea.setSelectionRange(textareaCursor - 1, textareaCursor - 1);
+function pushButtonDelete() {
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  if (start !== end) {
+    textarea.setRangeText("", start, end, "end");
   } else {
-    textarea.value = textarea.value.slice(0, coordsSelectValue[0]) + textarea.value.slice(coordsSelectValue[1]);
-    coordsSelectValue.length = 0;
-    textAreaOnFocus();
-    textarea.setSelectionRange(textarea.selectionStart - 1, textarea.selectionStart - 1);
+    textarea.value = textarea.value.slice(0, start) + textarea.value.slice(start + 1, textarea.value.length);
   }
-}
-
-const arrayBottomLetters = Array.from(document.querySelectorAll(".bottom_line_buttons"));
-const clear = arrayBottomLetters.find((elem) => elem.innerHTML === "Clear");
-clear.addEventListener("click", clearTextArea);
-
-function clearTextArea() {
-  textarea.value = "";
+  textarea.setSelectionRange(start, start);
   textAreaOnFocus();
 }
 
@@ -477,37 +388,15 @@ function textAreaOffFocus(e) {
   }
 }
 
-const buttonsCursorControl = document.querySelectorAll(".buttons-cursor-control");
-buttonsCursorControl.forEach((item) => {
-  if (item.innerHTML === "Home") {
-    item.addEventListener("click", goHomeButton);
-  }
-  if (item.innerHTML === "End") {
-    item.addEventListener("click", goEndButton);
-  }
-});
-
-function goHomeButton() {
-  textAreaOnFocus();
-  textarea.setSelectionRange(0, 0);
-}
-
-function goEndButton() {
-  textAreaOnFocus();
-  textarea.setSelectionRange(textarea.value.length, textarea.value.length);
-}
-
 arrowLeft.addEventListener("click", changePositionTextareaLeft);
 arrowRight.addEventListener("click", changePositionTextareaRight);
 
 function changePositionTextareaLeft() {
   textAreaOnFocus();
   const textareaStart = textarea.selectionStart;
-  if (textareaStart === 0) {
-    textarea.setSelectionRange(0, 0);
-  } else {
-    textarea.setSelectionRange(textareaStart - 1, textareaStart - 1);
-  }
+  textareaStart === 0
+    ? textarea.setSelectionRange(0, 0)
+    : textarea.setSelectionRange(textareaStart - 1, textareaStart - 1);
 }
 
 function changePositionTextareaRight() {
@@ -516,84 +405,85 @@ function changePositionTextareaRight() {
 }
 
 enter.addEventListener("click", addLineBreak);
-
 function addLineBreak() {
   textAreaOnFocus();
-  const valueStart = textarea.value.slice(0, textarea.selectionStart - 1);
-  const valueEnd = textarea.value.slice(textarea.selectionStart, textarea.value.length);
-  textarea.value = valueStart + "\n" + valueEnd;
+  textarea.setRangeText("\n", textarea.selectionStart, textarea.selectionEnd, "end");
 }
 
 arrowUp.addEventListener("click", setCursorUpper);
 arrowDown.addEventListener("click", setCursorBelow);
 
 function setCursorUpper() {
-  let cursorIndex = textarea.selectionEnd;
-  const prevLine = textarea.value.lastIndexOf("\n", cursorIndex);
-  const prevPrevLine = textarea.value.lastIndexOf("\n", prevLine - 1);
-  if (prevLine === -1 && prevPrevLine === -1) {
-    textarea.setSelectionRange(0, 0);
-    textAreaOnFocus();
-    return;
-  }
-  if (cursorIndex < prevLine) {
-    textarea.setSelectionRange(prevLine, prevLine);
-    textAreaOnFocus();
-    return;
-  }
-  cursorIndex -= prevLine;
-  if (cursorIndex === 0 && prevPrevLine === -1) {
-    textarea.setSelectionRange(0, 0);
-    textAreaOnFocus();
-    return;
-  }
-  if (cursorIndex === 0) {
-    textarea.setSelectionRange(prevPrevLine - 1, prevPrevLine - 1);
-    textAreaOnFocus();
-    return;
-  }
-  if (cursorIndex > prevPrevLine && prevPrevLine !== -1) {
-    textarea.setSelectionRange(prevLine, prevLine);
-    textAreaOnFocus();
-    return;
-  }
-  textarea.setSelectionRange(prevPrevLine + cursorIndex, prevPrevLine + cursorIndex);
+  const cursorIndex = textarea.selectionEnd;
+  const upLine = textarea.value.lastIndexOf("\n", cursorIndex - 1);
+  const upperUpLine = textarea.value.lastIndexOf("\n", upLine - 1);
   textAreaOnFocus();
+  if (upperUpLine > 0) {
+    cursorIndex + upperUpLine - upLine > upLine
+      ? textarea.setSelectionRange(upLine, upLine)
+      : textarea.setSelectionRange(cursorIndex + upperUpLine - upLine, cursorIndex + upperUpLine - upLine);
+    return;
+  }
+  if (upperUpLine < 0 && upLine < 0) {
+    return textarea.setSelectionRange(0, 0);
+  }
+  if (upperUpLine < 0) {
+    cursorIndex - upLine - 1 > upLine
+      ? textarea.setSelectionRange(upLine, upLine)
+      : textarea.setSelectionRange(cursorIndex - upLine - 1, cursorIndex - upLine - 1);
+    return;
+  }
 }
 
 function setCursorBelow() {
-  let cursorIndex = textarea.selectionEnd;
-  const prevLine = textarea.value.lastIndexOf("\n", cursorIndex);
-  const nextLine = textarea.value.indexOf("\n", cursorIndex + 1);
-  const prevPrevLine = textarea.value.lastIndexOf("\n", prevLine - 1);
-  if (prevLine === -1 && nextLine === -1) {
-    textarea.setSelectionRange(textarea.value.length, textarea.value.length);
-    textAreaOnFocus();
-    return;
-  }
-  if (cursorIndex > prevLine && nextLine === -1) {
-    textarea.setSelectionRange(textarea.value.length, textarea.value.length);
-    textAreaOnFocus();
-    return;
-  }
-  cursorIndex -= prevLine;
-  if (cursorIndex === 0 && nextLine === -1) {
-    textarea.setSelectionRange(prevLine + prevPrevLine, prevLine + prevPrevLine);
-    textAreaOnFocus();
-    return;
-  }
-  if (cursorIndex === 0) {
-    textarea.setSelectionRange(nextLine - 1, nextLine - 1);
-    textAreaOnFocus();
-    return;
-  }
-  textarea.setSelectionRange(nextLine + cursorIndex, nextLine + cursorIndex);
+  const cursorIndex = textarea.selectionEnd;
+  const upLine = textarea.value.lastIndexOf("\n", cursorIndex - 1);
+  const downLine = textarea.value.indexOf("\n", cursorIndex + 1);
+  const underDownLine = textarea.value.indexOf("\n", downLine + 1);
   textAreaOnFocus();
+  console.log(upLine, "upLine");
+  console.log(downLine, "downLine");
+  console.log(underDownLine, "underDownLine");
+
+  if (textarea.value[cursorIndex] === "\n") {
+    if (upLine < 0) {
+      if (cursorIndex + cursorIndex > downLine) return textarea.setSelectionRange(downLine, downLine);
+      return textarea.setSelectionRange(cursorIndex * 2 + 1, cursorIndex * 2 + 1);
+    } else if (downLine < 0) {
+      if (cursorIndex - upLine > textarea.value.length - cursorIndex) {
+        return textarea.setSelectionRange(downLine, downLine);
+      } else return textarea.setSelectionRange(cursorIndex - upLine + cursorIndex, cursorIndex - upLine + cursorIndex);
+    } else {
+      if (cursorIndex - upLine > downLine - cursorIndex) return textarea.setSelectionRange(downLine, downLine);
+      return textarea.setSelectionRange(cursorIndex - upLine + cursorIndex - 1, cursorIndex - upLine + cursorIndex - 1);
+    }
+  }
+  if (downLine < 0) {
+    return textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+  }
+  if (upLine < 0) {
+    if (downLine > underDownLine - downLine + 1) return textarea.setSelectionRange(downLine, downLine);
+    else return textarea.setSelectionRange(cursorIndex + downLine + 1, cursorIndex + downLine + 1);
+  }
+  if (underDownLine < 0) {
+    if (downLine - upLine - 1 < textarea.value.length - downLine - 1)
+      return textarea.setSelectionRange(downLine - upLine + cursorIndex, downLine - upLine + cursorIndex);
+    else return textarea.setSelectionRange(downLine - upLine + cursorIndex, downLine - upLine + cursorIndex);
+  }
+  if (downLine > 0) {
+    if (cursorIndex - upLine - 1 >= underDownLine - downLine)
+      return textarea.setSelectionRange(underDownLine, underDownLine);
+    return textarea.setSelectionRange(downLine - upLine + cursorIndex, downLine - upLine + cursorIndex);
+  }
 }
 
 insert.addEventListener("click", changeInputType);
-
 function changeInputType() {
   keyword.inputType ? (keyword.inputType = false) : (keyword.inputType = true);
   insert.classList.toggle("active");
+  textAreaOnFocus();
 }
+
+textarea.addEventListener("click", () => {
+  console.log(textarea.selectionStart);
+});

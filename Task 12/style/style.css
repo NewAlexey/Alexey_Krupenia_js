@@ -309,7 +309,7 @@ html {
   background-color: #4139bf;
 }
 
-.container .keyword .keyword-wrapper_main-buttons .keyword_bot_line .space {
+.container .keyword .keyword-wrapper_main-buttons .keyword_bot_line #space {
   height: 58px;
   width: 465px;
   border-radius: 20px;
@@ -333,7 +333,7 @@ html {
   font-size: 1rem;
 }
 
-.container .keyword .keyword-wrapper_special-buttons .special-buttons .buttons-cursor-control {
+.container .keyword .keyword-wrapper_special-buttons .special-buttons .buttons_cursor_control {
   height: 58px;
   width: 58px;
   display: -webkit-box;
@@ -354,11 +354,11 @@ html {
   text-align: center;
 }
 
-.container .keyword .keyword-wrapper_special-buttons .special-buttons .buttons-cursor-control:hover {
+.container .keyword .keyword-wrapper_special-buttons .special-buttons .buttons_cursor_control:hover {
   background-color: #342971;
 }
 
-.container .keyword .keyword-wrapper_special-buttons .special-buttons .buttons-cursor-control:active {
+.container .keyword .keyword-wrapper_special-buttons .special-buttons .buttons_cursor_control:active {
   background-color: #4139bf;
 }
 
@@ -373,7 +373,7 @@ html {
   margin-top: 58px;
 }
 
-.container .keyword .keyword-wrapper_special-buttons .arrow-buttons .buttons-cursor-control {
+.container .keyword .keyword-wrapper_special-buttons .arrow-buttons .buttons_cursor_control {
   height: 58px;
   width: 58px;
   display: -webkit-box;
