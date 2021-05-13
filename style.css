@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+
+body {
+  font-family: "Raleway";
+  height: 50vw;
+  background: linear-gradient(to top, #f5f5f5, #808080);
+}
+
+.container {
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.div-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 3.125em;
+  font-size: 16px;
+}
+
+.div-homeworks {
+  width: 20.875em;
+  padding-bottom: 1.875em;
+  padding-right: 2em;
+}
+
+.links-container {
+  display: flex;
+  align-items: center;
+}
+
+.a_homework-link {
+  font-size: 2.1875em;
+  margin: 0;
+  cursor: pointer;
+}
+
+.a_homework-link:link {
+  text-decoration: none;
+}
+
+.a_homework-link:hover {
+  color: darkorange;
+}
+
+.fa-class {
+  margin-left: 1.25em;
+  margin-top: 0.5em;
+}
+
+.fa-class:hover {
+  color: darkorange;
+}
+
+.p-with-information {
+  font-size: 0.875em;
+  cursor: default;
+  width: 20em;
+  line-height: 1.4em;
+}
+
+a:link,
+a:active,
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+@media (min-width: 425px) and (max-width: 1024px) {
+  .container {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 425px) {
+  .container {
+    max-width: 260px;
+  }
+
+  .div-homeworks {
+    padding-right: 0;
+  }
+}
