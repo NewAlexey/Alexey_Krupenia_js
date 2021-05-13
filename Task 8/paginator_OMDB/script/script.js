@@ -8,7 +8,7 @@ function sendNewRequest() {
     if (inputSearch.length >= 2) {
         let selectValue = document.querySelector("#selectType").value;
         inputSearch = inputSearch.trim().split(" ").join("+");
-        let url = `http://www.omdbapi.com/?s=${inputSearch}&type=${selectValue}&apikey=24c773c2`;
+        let url = `https://www.omdbapi.com/?s=${inputSearch}&type=${selectValue}&apikey=24c773c2`;
         fetch(url)
             .then((response) => {
                 return response.json();
@@ -115,7 +115,7 @@ function showAdditionInfo(result, i) {
 
 function insertInformation(result, i) {
     let fimlId = result[i].imdbID;
-    let url = `http://www.omdbapi.com/?i=${fimlId}&apikey=24c773c2`;
+    let url = `https://www.omdbapi.com/?i=${fimlId}&apikey=24c773c2`;
     fetch(url)
         .then((response) => {
             return response.json();
